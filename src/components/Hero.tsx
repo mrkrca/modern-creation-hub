@@ -1,8 +1,16 @@
 import { Phone, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import ContactPopover from "@/components/ContactPopover";
 import heroBg from "@/assets/hero-bg.jpg";
 
 const Hero = () => {
+  const scrollToContact = () => {
+    const contactSection = document.getElementById("contact");
+    if (contactSection) {
+      contactSection.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <section
       id="home"
@@ -30,11 +38,18 @@ const Hero = () => {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 animate-fade-in" style={{ animationDelay: "0.4s" }}>
-            <Button size="lg" className="gap-2 text-base font-semibold">
-              <Phone className="w-5 h-5" />
-              Kontakt
-            </Button>
-            <Button size="lg" variant="outline" className="gap-2 text-base font-semibold border-primary text-primary hover:bg-primary hover:text-primary-foreground">
+            <ContactPopover>
+              <Button size="lg" className="gap-2 text-base font-semibold">
+                <Phone className="w-5 h-5" />
+                Kontakt
+              </Button>
+            </ContactPopover>
+            <Button 
+              size="lg" 
+              variant="outline" 
+              className="gap-2 text-base font-semibold border-primary text-primary hover:bg-primary hover:text-primary-foreground"
+              onClick={scrollToContact}
+            >
               <Send className="w-5 h-5" />
               Pošaljite Upit
             </Button>
