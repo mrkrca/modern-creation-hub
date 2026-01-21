@@ -10,9 +10,11 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 
 const ContactForm = () => {
   const { toast } = useToast();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -20,13 +22,32 @@ const ContactForm = () => {
     message: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast({
-      title: "Upit poslan!",
-      description: "Hvala na interesovanju. Kontaktiraćemo Vas uskoro.",
-    });
-    setFormData({ name: "", email: "", service: "", message: "" });
+    setIsSubmitting(true);
+
+    try {
+      const { error } = await supabase.functions.invoke("send-contact-email", {
+        body: formData,
+      });
+
+      if (error) throw error;
+
+      toast({
+        title: "Upit poslan!",
+        description: "Hvala na interesovanju. Kontaktiraćemo Vas uskoro.",
+      });
+      setFormData({ name: "", email: "", service: "", message: "" });
+    } catch (error) {
+      console.error("Error sending email:", error);
+      toast({
+        title: "Greška",
+        description: "Došlo je do greške. Molimo pokušajte ponovo.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -111,8 +132,13 @@ const ContactForm = () => {
               />
             </div>
 
-            <Button type="submit" size="lg" className="w-full font-semibold">
-              Pošaljite Upit
+            <Button 
+              type="submit" 
+              size="lg" 
+              className="w-full font-semibold"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? "Šaljem..." : "Pošaljite Upit"}
             </Button>
           </form>
         </div>
