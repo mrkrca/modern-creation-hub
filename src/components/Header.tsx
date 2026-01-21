@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Menu, X, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import ContactPopover from "@/components/ContactPopover";
 
 const navItems = [
   { label: "Početna", href: "#home" },
@@ -40,10 +41,12 @@ const Header = () => {
 
           {/* CTA Button */}
           <div className="hidden md:block">
-            <Button variant="default" size="sm" className="gap-2">
-              <Phone className="w-4 h-4" />
-              Kontakt
-            </Button>
+            <ContactPopover>
+              <Button variant="default" size="sm" className="gap-2">
+                <Phone className="w-4 h-4" />
+                Kontakt
+              </Button>
+            </ContactPopover>
           </div>
 
           {/* Mobile Menu Button */}
@@ -69,10 +72,12 @@ const Header = () => {
                 {item.label}
               </a>
             ))}
-            <Button variant="default" size="sm" className="w-full mt-4 gap-2">
-              <Phone className="w-4 h-4" />
-              Kontakt
-            </Button>
+            <ContactPopover>
+              <Button variant="default" size="sm" className="w-full mt-4 gap-2">
+                <Phone className="w-4 h-4" />
+                Kontakt
+              </Button>
+            </ContactPopover>
           </nav>
         )}
       </div>
