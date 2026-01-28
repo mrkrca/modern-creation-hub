@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Menu, X, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ContactPopover from "@/components/ContactPopover";
+import logo from "@/assets/logo.png";
 
 const navItems = [
   { label: "Početna", href: "#home" },
@@ -19,11 +20,8 @@ const Header = () => {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
-          <a href="#home" className="flex items-center gap-2">
-            <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
-              <span className="text-primary-foreground font-black text-lg">CT</span>
-            </div>
-            <span className="font-bold text-lg hidden sm:block">CENTROKOP TRANS</span>
+          <a href="#home" className="flex items-center">
+            <img src={logo} alt="Centrokop Trans" className="h-12 md:h-16 w-auto" />
           </a>
 
           {/* Desktop Nav */}
