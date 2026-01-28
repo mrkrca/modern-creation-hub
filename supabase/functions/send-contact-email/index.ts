@@ -36,7 +36,7 @@ const handler = async (req: Request): Promise<Response> => {
       },
       body: JSON.stringify({
         from: "Centrokop Trans <onboarding@resend.dev>",
-        to: ["centrokoptrans@gmail.com"],
+        to: ["aleksa.djuric.dj@gmail.com"],
         subject: `Novi upit: ${service} - ${name}`,
         html: `
           <h1>Novi upit sa websajta</h1>
